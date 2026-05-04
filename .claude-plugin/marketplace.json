@@ -1,0 +1,19 @@
+{
+  "name": "devflow-skills",
+  "owner": {
+    "name": "Tahajjat"
+  },
+  "metadata": {
+    "description": "A unified library of AI prompt skills covering the full software development lifecycle. Language-agnostic and framework-flexible — works with Java, Spring Boot, Python, Django, ASP.NET Core, Laravel, PHP, Node.js, Rails, and more. Supports MySQL, PostgreSQL, MSSQL, SQLite, and MongoDB, and more."
+  },
+  "plugins": [
+    {
+      "name": "devflow-skills",
+      "source": {
+        "source": "github",
+        "repo": "Tahajjat/devflow-skills"
+      },
+      "description": "Full software development lifecycle skills — language-agnostic core pipeline with stack-specific variants. Covers requirement analysis, architecture, TDD, code generation, code review, performance audit, and commit workflow."
+    }
+  ]
+}
