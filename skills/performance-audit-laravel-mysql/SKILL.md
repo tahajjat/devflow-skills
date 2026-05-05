@@ -18,7 +18,7 @@ description: >
 ## Overview
 
 Performs a root-cause-first performance audit of any Laravel application backed
-by MySQL 8.0. Produces two output files covering issue discovery, structured
+by MySQL 8.0. Produces two output files under `.devflow/performance/`  covering issue discovery, structured
 resolutions with runnable before/after code, and a production readiness appendix
 sized to the target server.
 
@@ -77,9 +77,37 @@ Before writing any output, confirm or infer:
 If the user provided symptoms (e.g. "the orders page is slow"), treat those as
 priority anchors — the highest-severity issues should relate to them directly.
 
-### Step 2 — Generate Task A: Issues Report
+### Step 2 — Prepare output folder and gitignore
 
-**Output file:** `project_issues_<YYYY-MM-DD>.md`
+Execute silently before generating any report. Do not ask for confirmation.
+Do not mention this step in the output summary.
+
+**2a — Create the output folder:**
+```bash
+mkdir -p .devflow/performance
+```
+
+**2b — Update .gitignore:**
+
+Check if `.gitignore` exists at the project root:
+- If it exists: check whether `.devflow/` is already present
+  - If YES — do nothing, continue
+  - If NO — append this block at the end of the file:
+    ```
+    # devflow-skills generated output — never commit
+    .devflow/
+    ```
+- If it does not exist: create `.gitignore` with this content:
+  ```
+  # devflow-skills generated output — never commit
+  .devflow/
+  ```
+
+Execute both sub-steps silently and proceed to Step 3.
+
+### Step 3 — Generate Task A: Issues Report
+
+**Output file:** `.devflow/performance/project_issues_<YYYY-MM-DD>.md`
 Use today's date. If unavailable, use the literal placeholder and add a note.
 
 **Document header must include:**
@@ -134,15 +162,15 @@ problem. State what architectural decision led to it.
 | Medium | Causes measurable degradation; unlikely to cause outages alone |
 | Low | Minor inefficiency; acceptable in isolation but compounds at scale |
 
-**Quality gate — verify all before Step 3:**
+**Quality gate — verify all before Step 4:**
 - [ ] All ISSUE-XXX IDs are sequential with no gaps
 - [ ] Each category meets its minimum count
 - [ ] At least one Critical or High issue in every category
 - [ ] Every issue has a concrete code or config example — no vague descriptions
 
-### Step 3 — Generate Task B: Resolution Report
+### Step 4 — Generate Task B: Resolution Report
 
-**Output file:** `project_issues_resolve_<YYYY-MM-DD>.md`
+**Output file:** `.devflow/performance/project_issues_resolve_<YYYY-MM-DD>.md`
 Use the same date as Task A.
 
 Every ISSUE-XXX from Task A must have exactly one resolution entry. No gaps.
@@ -186,7 +214,7 @@ If this fix conflicts with another resolution, document the trade-off explicitly
 here rather than omitting either approach.
 ```
 
-### Step 4 — Append Task C: Production Readiness Appendix
+### Step 5 — Append Task C: Production Readiness Appendix
 
 Append to the end of the Resolution Report file under:
 `## Appendix: Production Readiness`
@@ -219,9 +247,11 @@ Exactly 10 binary (yes/no) items — no more, no fewer. Each must be verifiable
 with a single command or observable output. Obvious items must still be listed
 explicitly — they are the ones most often skipped under deadline pressure.
 
-### Step 5 — Final self-check
+### Step 6 — Final self-check
 
 Before delivering output, verify every item:
+- [ ] `.devflow/performance/` folder exists in the project root
+- [ ] `.devflow/` is present in `.gitignore`
 - [ ] Task A and Task B cover identical ISSUE-XXX sets
 - [ ] No "After" code block contains placeholder comments of any kind
 - [ ] All DB config values in Task C are calculated for `{SERVER_RAM}` — not MySQL defaults
@@ -313,11 +343,14 @@ Code review rule — every foreign key column in a migration must have
 | "Task A is done — I'll stop here and let the user ask for Task B" | Both files are produced in a single skill run. Generate Task B immediately after Task A without waiting for a follow-up prompt. |
 | "The server RAM wasn't specified so I'll use generic my.cnf values" | Default to `{SERVER_RAM}` = 16 GB if not provided. MySQL install defaults (e.g. `innodb_buffer_pool_size = 128M`) signal that the config was never tuned. Always calculate values from the assumed RAM. |
 | "The C4 checklist has 8 items — the other 2 are obvious" | The checklist must have exactly 10 items. Obvious items must be listed explicitly — they are the ones most often skipped under deadline pressure before deployment. |
+| "The user can add .gitignore themselves" | The skill must handle .gitignore automatically on every run. Audit reports contain environment-specific findings that must never reach a shared repository. |
 
 ---
 
 ## Red flags
 
+- Output files written to project root instead of `.devflow/performance/`
+- `.devflow/` missing from `.gitignore` after the skill runs
 - Issue descriptions reference vague categories ("bad query") without naming the specific code pattern
 - "After" code blocks contain `// your logic here`, `// implement this`, or `// add logic here`
 - Laravel version in code examples does not match `{LARAVEL_VERSION}` (e.g. PHP 7.x syntax in a Laravel 12 audit)
@@ -333,8 +366,10 @@ Code review rule — every foreign key column in a migration must have
 
 After completing the full process, confirm every item before delivering output:
 
-- [ ] `project_issues_<date>.md` exists with today's date in the filename
-- [ ] `project_issues_resolve_<date>.md` exists with the same date
+- [ ] `.devflow/performance/` folder exists at the project root
+- [ ] `.devflow/` is present in `.gitignore` — verified by reading the file
+- [ ] `.devflow/performance/project_issues_<date>.md` exists with today's date in the filename
+- [ ] `.devflow/performance/project_issues_resolve_<date>.md` exists with the same date
 - [ ] Issue count per category: Database 5–7, Application 6–8, Infrastructure 4–6
 - [ ] Every ISSUE-XXX in Task A has a matching resolution entry in Task B
 - [ ] No sequential gaps in ISSUE-XXX IDs

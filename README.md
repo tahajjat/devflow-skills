@@ -19,7 +19,7 @@ claude plugin marketplace add tahajjat/devflow-skills
 Install the plugin:
 
 ```bash
-claude plugin install devflow-skills@tahajjat
+claude plugin install devflow-skills
 ```
 
 ---
@@ -34,8 +34,8 @@ building in Java, Python, PHP, C#, or any other language.
 ┌─────────────────────────────────────────────────────────────────────────┐
 │  PLAN                                                                   │
 │                                                                         │
-│  Phase 1            Phase 2            Phase 3          Phase 4        │
-│  requirement-   →   plan-          →   plan-        →   plan-          │
+│  Phase 1            Phase 2            Phase 3          Phase 4         │
+│  requirement-   →   plan-          →   plan-        →   plan-           │
 │  analysis           requirements       architecture      database       │
 │  (you)              (you + Claude)     (you + Claude)    (Claude)       │
 │  BRD-*.md           URS-*.md           ARCH-*.md         ERD-*.md       │
@@ -44,16 +44,16 @@ building in Java, Python, PHP, C#, or any other language.
 ┌─────────────────────────────────────────────────────────────────────────┐
 │  BUILD                                                                  │
 │                                                                         │
-│  Phase 5            Phase 6            Phase 7                         │
-│  tdd-spec       →   code-          →   code-review                     │
-│  (Claude)           generate           (you + Claude)                  │
-│  TEST-*.md          src/               REVIEW-*.md                     │
+│  Phase 5            Phase 6            Phase 7                          │
+│  tdd-spec       →   code-          →   code-review                      │
+│  (Claude)           generate           (you + Claude)                   │
+│  TEST-*.md          src/               REVIEW-*.md                      │
 └─────────────────────────────────────────────────────────────────────────┘
 ┌─────────────────────────────────────────────────────────────────────────┐
 │  SHIP                                                                   │
 │                                                                         │
-│  Phase 8            Phase 9                                            │
-│  performance-   →   commit-                                            │
+│  Phase 8            Phase 9                                             │
+│  performance-   →   commit-                                             │
 │  audit              changelog                                           │
 │  (Claude)           (support)                                           │
 │  AUDIT-*.md         git commit                                          │
@@ -108,7 +108,24 @@ building in Java, Python, PHP, C#, or any other language.
 
 ## How to use
 
-### Option A — Claude Code custom command (recommended)
+### Option A — Claude Code plugin (recommended)
+
+```bash
+# 1. Add the marketplace
+claude plugin marketplace add tahajjat/devflow-skills
+
+# 2. Install the plugin
+claude plugin install devflow-skills
+
+# 3. Open Claude Code in your project
+cd your-project
+claude
+
+# 4. Invoke a skill
+/devflow-skills:performance-audit-laravel-mysql
+```
+
+### Option B — Claude Code custom command
 
 ```bash
 # Copy a skill into your project's Claude commands folder
@@ -124,10 +141,10 @@ Invoke inside Claude Code:
 /performance-audit
 ```
 
-### Option B — Claude Code inline
+### Option C — Claude Code inline
 
 ```bash
-claude "Run a performance audit on this project." \
+claude "Run a performance audit on this project. Laravel 12,MYSQL 8.0, 16GB RAM" \
   --context devflow-skills/skills/performance-audit-laravel-mysql/SKILL.md
 ```
 
@@ -155,6 +172,32 @@ Example — `performance-audit-laravel-mysql`:
 
 If you do not provide a value, the skill uses the default and states the
 assumption at the top of every output document.
+
+---
+## Output folder
+
+All skills write their generated files to a `.devflow/` folder at your project root.
+This folder is **created automatically** the first time a skill runs — no setup required.
+
+```
+your-project/
+└── .devflow/
+    ├── performance/        ← performance audit skills
+    │   ├── project_issues_2026-05-05.md
+    │   └── project_issues_resolve_2026-05-05.md
+    ├── requirements/       ← requirement-analysis, plan-requirements
+    ├── architecture/       ← plan-architecture
+    ├── database/           ← plan-database
+    ├── tdd/                ← tdd-spec
+    └── reviews/            ← code-review
+```
+
+Each skill also **automatically updates your `.gitignore`** to exclude `.devflow/` —
+generated reports are never accidentally committed to your repository.
+
+Two skills write outside `.devflow/`:
+- `code-generate` — writes to `src/`, `app/`, `routes/` (project source, always committed)
+- `commit-changelog` — writes `CHANGELOG.md` to project root (always committed)
 
 ---
 
