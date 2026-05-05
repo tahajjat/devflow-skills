@@ -13,13 +13,13 @@ and any database: **Oracle . MySQL · PostgreSQL · MSSQL · SQLite · MongoDB**
 Add the marketplace source:
 
 ```bash
-claude plugin marketplace add Tahajjat/devflow-skills
+claude plugin marketplace add tahajjat/devflow-skills
 ```
 
 Install the plugin:
 
 ```bash
-claude plugin install devflow-skills@Tahajjat
+claude plugin install devflow-skills@tahajjat
 ```
 
 ---
@@ -96,13 +96,13 @@ building in PHP, Java, Python, C#, or any other language.
 
 | Skill | Status | Stack |
 |-------|--------|-------|
-| [performance-audit-laravel-mysql](./skills/performance-audit-laravel-mysql/) |  **v1.0.0** | Laravel (8–13) · PHP 8.x · MySQL 8.0 |
-| [performance-audit-laravel-postgresql](./skills/performance-audit-laravel-postgresql/) |  Planned | Laravel (8–13) · PHP 8.x · PostgreSQL 15/16 |
+| [performance-audit-laravel-mysql](./skills/performance-audit-laravel-mysql/) |  **v1.0.0** | Laravel (10–13) · PHP 8.x · MySQL 8.0 |
+| [performance-audit-laravel-postgresql](./skills/performance-audit-laravel-postgresql/) |  Planned | Laravel (10–13) · PHP 8.x · PostgreSQL 15/16 |
 | [performance-audit-asp-core-mssql](./skills/performance-audit-asp-core-mssql/) |  Planned | ASP.NET Core 8 · C# · MSSQL 2019/2022 |
 | [performance-audit-spring-boot](./skills/performance-audit-spring-boot/) |  Planned | Spring Boot 3 · Java 21 · MySQL / PostgreSQL |
 
 > More variants planned: Django + PostgreSQL, Node.js + MongoDB, Rails + PostgreSQL, FastAPI + PostgreSQL.
-> Open a [new skill request](https://github.com/Tahajjat/devflow-skills/issues/new?template=new_skill.md) to vote for the next one.
+> Open a [new skill request](https://github.com/tahajjat/devflow-skills/issues/new?template=new_skill.md) to vote for the next one.
 
 ---
 
@@ -267,7 +267,7 @@ devflow-skills/
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for how to add or improve a skill.
-Use [GitHub Issues](https://github.com/Tahajjat/devflow-skills/issues) to
+Use [GitHub Issues](https://github.com/tahajjat/devflow-skills/issues) to
 report bugs or request new skills or stack variants.
 
 ---
@@ -276,4 +276,4 @@ report bugs or request new skills or stack variants.
 
 MIT — see [LICENSE](./LICENSE)
 
-Built by [Tahajjat](https://github.com/Tahajjat)
+Built by [Tahajjat](https://github.com/tahajjat)

@@ -1,6 +1,6 @@
 ---
 name: performance-audit-laravel-mysql
-version: 2.1.0
+version: 1.0.0
 description: >
   Audits a Laravel + MySQL application for performance issues and generates
   two structured markdown reports: an issues report (ISSUE-XXX schema, three
