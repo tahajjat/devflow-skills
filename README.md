@@ -28,7 +28,7 @@ claude plugin install devflow-skills@tahajjat
 
 Skills chain together — each skill's output becomes the next skill's input.
 The pipeline is **stack-independent**: the same phases apply whether you are
-building in PHP, Java, Python, C#, or any other language.
+building in Java, Python, PHP, C#, or any other language.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐

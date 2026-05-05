@@ -3,14 +3,11 @@
   "version": "1.0.0",
   "description": "Full software development lifecycle skills — language-agnostic core pipeline with stack-specific variants. Covers requirement analysis, architecture, TDD, code generation, code review, performance audit, and commit workflow.",
   "author": {
-    "name": "Tahajjat",
-    "url": "https://github.com/Tahajjat"
+    "name": "Tahajjat Tuhin",
+    "url": "https://github.com/tahajjat"
   },
   "skills": "./skills",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Tahajjat/devflow-skills"
-  },
+  "repository": "https://github.com/tahajjat/devflow-skills",
   "license": "MIT",
   "keywords": [
     "performance-audit",
@@ -20,10 +17,11 @@
     "django",
     "aspnet",
     "laravel",
-    "mysql",
     "php",
     "nodejs",
     "rails",
+    "mysql",
+    "postgresql",
     "developer-tools",
     "sdlc",
     "agnostic"
